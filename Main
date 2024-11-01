@@ -1,4 +1,4 @@
-
+getgenv().Empty= true
 bit32 = {};
 local N = 32;
 local P = 2 ^ N;
