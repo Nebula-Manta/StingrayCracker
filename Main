@@ -187,4 +187,5 @@ end);
 Display();
 if ((type(queue_on_teleport) == LUAOBFUSACTOR_DECRYPT_STR_0("\93\59\186\85\89\82\33\186", "\45\59\78\212\54")) or (572 > 4486)) then
 	queue_on_teleport("repeat task.wait() until game:IsLoaded() if #game:GetService('Players'):GetPlayers()>=2 then loadstring(game:HttpGet('https://raw.githubusercontent.com/Nebula-Manta/StingrayCracker/refs/heads/main/Main')) end");
+	game:GetService('TeleportService'):Teleport(5130598377)
 end
