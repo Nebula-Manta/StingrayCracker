@@ -2506,6 +2506,7 @@ d59b8e9075748e673faa0ccf90752bab956b1b198c6c86b72e37213bb6365ab0c457ea94e6e800c8
 
 ]]--
 
+
 local obf_stringchar = string.char;
 local obf_stringbyte = string.byte;
 local obf_stringsub = string.sub;
@@ -2655,9 +2656,9 @@ local function FingerFarm()
 		while (GlobalSwitch % 2) == 0 do
 			task.wait();
 			Slow = Slow + 1;
-			local SelectAll = LocalPlayer.PlayerGui.UI.Gameplay.ChestRoll.SelectAll;
-			local Close = LocalPlayer.PlayerGui.UI.Gameplay.ChestRoll.Close;
 			pcall(function()
+				local SelectAll = LocalPlayer.PlayerGui.UI.Gameplay.ChestRoll.SelectAll;
+				local Close = LocalPlayer.PlayerGui.UI.Gameplay.ChestRoll.Close;
 				if SelectAll.Visible then
 					getconnections(SelectAll.MouseButton1Click)[1]:Fire();
 				elseif Close.Visible then
@@ -2735,7 +2736,9 @@ Loop = game:GetService(LUAOBFUSACTOR_DECRYPT_STR_0("\111\99\125\47\118\185\91\84
 		else
 			LocalPlayer.Character.HumanoidRootPart.CFrame = CurseLocation + Vector3.new(0, 50, 0);
 		end
-		Press("E");
+		pcall(function()
+			Press("E");
+		end);
 		Click();
 	end
 end);
