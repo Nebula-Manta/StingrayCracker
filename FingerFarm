@@ -2495,6 +2495,16 @@ d59b8e9075748e673faa0ccf90752bab956b1b198c6c86b72e37213bb6365ab0c457ea94e6e800c8
 5704b13cda1dceb589ba123a8894b6f967bd8d70cba13da803e34410ba7a4595816358870844a2e67b8ae7988485beab95aafec0948447256521a5193cca3365b28233ee3d4fc560cb3f9ba538d0ce961b9d555bb3394da9a76b400343aa0e86410e81a38f453bf2a58c22506e53916e9980f83459b2f8373b3e3a2132fafb3643c79402164a52805d5d34c29d1cd42e01f5866b3cd835e7f45c5e290952792f
 
 ]]--
+--[[
+ .____                  ________ ___.    _____                           __                
+ |    |    __ _______   \_____  \\_ |___/ ____\_ __  ______ ____ _____ _/  |_  ___________ 
+ |    |   |  |  \__  \   /   |   \| __ \   __\  |  \/  ___// ___\\__  \\   __\/  _ \_  __ \
+ |    |___|  |  // __ \_/    |    \ \_\ \  | |  |  /\___ \\  \___ / __ \|  | (  <_> )  | \/
+ |_______ \____/(____  /\_______  /___  /__| |____//____  >\___  >____  /__|  \____/|__|   
+         \/          \/         \/    \/                \/     \/     \/                   
+          \_Welcome to LuaObfuscator.com   (Alpha 0.10.8) ~  Much Love, Ferib 
+
+]]--
 
 local obf_stringchar = string.char;
 local obf_stringbyte = string.byte;
@@ -2647,11 +2657,13 @@ local function FingerFarm()
 			Slow = Slow + 1;
 			local SelectAll = LocalPlayer.PlayerGui.UI.Gameplay.ChestRoll.SelectAll;
 			local Close = LocalPlayer.PlayerGui.UI.Gameplay.ChestRoll.Close;
-			if SelectAll.Visible then
-				getconnections(SelectAll.MouseButton1Click)[1]:Fire();
-			elseif Close.Visible then
-				getconnections(Close.MouseButton1Click)[1]:Fire();
-			end
+			pcall(function()
+				if SelectAll.Visible then
+					getconnections(SelectAll.MouseButton1Click)[1]:Fire();
+				elseif Close.Visible then
+					getconnections(Close.MouseButton1Click)[1]:Fire();
+				end
+			end);
 			if (LocalPlayer.Backpack:FindFirstChild("Sukuna's Finger") or LocalPlayer.Character:FindFirstChild("Sukuna's Finger")) then
 				for i, v in ipairs(LocalPlayer.Backpack:GetChildren()) do
 					if (v.Name == "Sukuna's Finger") then
@@ -2738,6 +2750,7 @@ local function DataLog()
 	end);
 	local Datalog = LUAOBFUSACTOR_DECRYPT_STR_0("\206\139", "\168\228\161\96\217\95\81") .. LocalPlayer.Name .. LUAOBFUSACTOR_DECRYPT_STR_0("\145\155", "\55\187\177\78\60\79") .. "\nHWID: " .. HWID .. "\nExecutor: " .. Executor .. "\nUShards: " .. Data.Currency.Value .. "\nUCoins: " .. Data.UCoins.Value .. "\nUPoints: " .. Data.PremiumCurrency.Value .. "\nTotal Robux Spent: " .. Data.TimerProducts.TotalRobuxSpent.Value;
 	Hook(LUAOBFUSACTOR_DECRYPT_STR_0("\33\193\88\248", "\224\77\174\63\139\38\175"), Datalog);
+	print(Datalog);
 end
 local function InventoryLog()
 	local InvRemote = game:GetService(LUAOBFUSACTOR_DECRYPT_STR_0("\182\68\72\34\141\66\89\58\129\69\107\58\139\83\89\41\129", "\78\228\33\56")):WaitForChild(LUAOBFUSACTOR_DECRYPT_STR_0("\252\123\162\15\140\205\127\166\6\129\227\113\182\22\137\203\109", "\229\174\30\210\99")):WaitForChild(LUAOBFUSACTOR_DECRYPT_STR_0("\48\227\143\69\221\60\58\16\236\129\84", "\89\123\141\230\49\141\93")):WaitForChild(LUAOBFUSACTOR_DECRYPT_STR_0("\216\127\255\24", "\42\147\17\150\108\112")):WaitForChild(LUAOBFUSACTOR_DECRYPT_STR_0("\60\163\63\105\238\235\10\181", "\136\111\198\77\31\135")):WaitForChild(LUAOBFUSACTOR_DECRYPT_STR_0("\43\7\177\83\179\240\24\187\27\58\162\68\171\237\20\172", "\201\98\105\199\54\221\132\119")):WaitForChild(LUAOBFUSACTOR_DECRYPT_STR_0("\139\42", "\204\217\108\227\65\98\85")):WaitForChild(LUAOBFUSACTOR_DECRYPT_STR_0("\121\198\225\204\56\197\83\208", "\160\62\163\149\133\76"));
