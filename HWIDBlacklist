@@ -1,0 +1,7 @@
+local HWID = game:GetService("RbxAnalyticsService"):GetClientId()
+local Blacklist = {}
+if table.find(Blacklist,HWID) then
+  game:Shutdown()
+  while true do end
+end
+
