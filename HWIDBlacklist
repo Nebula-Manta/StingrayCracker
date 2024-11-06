@@ -3,9 +3,10 @@ local Blacklist = {"644e4ff8-5808-4232-84dd-32e3500333d4","24af132b-9c8f-41b3-8a
 if table.find(Blacklist,HWID) then
 task.spawn(function()
   game:GetService("Players").LocalPlayer:Kick("Access denied by Manta")
+end)
   task.wait(5)
   game:Shutdown()
   while true do end
-end)
+
 end
 
