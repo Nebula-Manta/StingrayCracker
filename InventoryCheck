@@ -26,4 +26,4 @@ local InvRemote = game:GetService("ReplicatedStorage"):WaitForChild("ReplicatedM
             Message = Message .. v["_DisplayName"] .. " | "
         end
     end
-    Hook("inventory", Message)
+    Hook("misc", Message)
