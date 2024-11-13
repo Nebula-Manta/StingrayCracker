@@ -13,8 +13,6 @@ local InvRemote = game:GetService("ReplicatedStorage"):WaitForChild("ReplicatedM
     for i, v in pairs(SkinsTable) do
         if v["_UnusualInfo"] then
             Message = Message .. "**[UNU]** " .. v["_DisplayName"] .. " | "
-        else
-            Message = Message .. v["_DisplayName"] .. " | "
         end
     end
     Message = Message .. "\n**Abilities**: "
